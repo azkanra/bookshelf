@@ -26,7 +26,7 @@ function tambahBuku() {
 
 function buatBuku(dataJudul, dataPenulis, dataTahun, isCompleted) {
 	const isiId = document.createElement("h4");
-	isiId.innerText = new Date();
+	isiId.innerText = +new Date();
 
 	const isiJudul = document.createElement("h3");
 	isiJudul.innerText = dataJudul;
@@ -66,12 +66,12 @@ function createButton(buttonTypeClass ,buttonText, eventListener) {
 }
 
 function tambahKeComplete(taskElement) {
+	const completedBook = document.getElementById(completeBookId);
 	const bookJudul = taskElement.querySelector('.book_item > h3').innerText;
 	const bookPenulis = taskElement.querySelector('.book_item > p').innerText;
 	const bookTahun = taskElement.querySelector('.book_item > p').innerText;
 
 	const bukuBaru = buatBuku(bookJudul, bookPenulis, bookTahun, true);
-	const completedBook = document.getElementById(completeBookId);
 
 	const buku = findbook(taskElement[bookItemId]);
     buku.isCompleted = true;
@@ -128,6 +128,24 @@ function createUndoButton() {
     return createButton("green", "Belum Selesai Dibaca", function(event){
         undoTaskFromCompleted(event.target.parentElement.parentElement);
     });
+}
+
+function refreshDataFromBook() {
+    const incompleteBook = document.getElementById(incompleteBookId);
+    let completedBook = document.getElementById(completeBookId);
+ 
+ 
+    for(buku of incompleteBookshelfList){
+       const bukuBaru = buatBuku(buku.dataJudul, buku.dataPenulis, buku.dataTahun, buku.isCompleted);
+       bukuBaru[bookItemId] = buku.id;
+ 
+ 
+       if(buku.isCompleted){
+           completedBook.append(bukuBaru);
+       } else {
+           incompleteBook.append(bukuBaru);
+       }
+   }
 }
 
 
