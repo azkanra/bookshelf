@@ -59,23 +59,7 @@ function findbookIndex(bookId) {
  
        index++;
    }
+}
  
 
- function refreshDataFromBook() {
-    const belumSelesai = document.getElementById(incompleteBookId);
-    let sudahSelesai = document.getElementById(completeBookId);
  
- 
-    for(buku of incompleteBookshelfList){
-       const bukuBaru = buatBuku(buku.judul, buku.penulis, buku.tahun, buku.isCompleted);
-       bukuBaru[bookItemId] = buku.id;
- 
- 
-       if(buku.isCompleted){
-           sudahSelesai.append(bukuBaru);
-       } else {
-           belumSelesai.append(bukuBaru);
-       }
-   }
-}
-}
